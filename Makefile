@@ -8,3 +8,6 @@ statik:
 	cd protoc-gen-lile-server && statik -src=template
 
 default: test
+
+install: statik
+	go install ./lile/

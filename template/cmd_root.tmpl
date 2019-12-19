@@ -9,8 +9,10 @@ import (
 
 var cfgFile string
 
+// RootCmd rool cli command
 var RootCmd = lile.BaseCommand("{{ .Name }}", "A gRPC based service")
 
+// Execute ...
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)

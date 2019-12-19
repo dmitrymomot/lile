@@ -5,7 +5,6 @@ require (
 	github.com/fatih/color v1.7.0
 	github.com/gofrs/uuid v3.1.0+incompatible
 	github.com/golang/protobuf v1.3.2
-	github.com/googleapis/gax-go v2.0.2+incompatible // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20180507213350-8e809c8a8645

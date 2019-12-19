@@ -6,6 +6,7 @@ import (
 
 type {{ .CamelCaseName }}ServiceSubscriber struct {}
 
+// Setup {{.Name}} service subscriber
 func (s *{{ .CamelCaseName }}ServiceSubscriber) Setup(c *pubsub.Client) {
 	// https://godoc.org/github.com/lileio/pubsub#Client.On
 	// c.On(pubsub.HandlerOptions{

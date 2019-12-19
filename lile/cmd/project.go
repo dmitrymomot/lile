@@ -12,9 +12,10 @@ type project struct {
 	Name       string
 	ProjectDir string
 	Folder     folder
+	Gateway    bool
 }
 
-func newProject(path, moduleName string) project {
+func newProject(path, moduleName string, gateway bool) project {
 	f := folder{
 		AbsPath: path,
 	}
@@ -28,6 +29,9 @@ func newProject(path, moduleName string) project {
 	subs := f.addFolder("subscribers")
 	subs.addFile("subscribers.go", "subscribers.tmpl")
 
+	reg := f.addFolder("registry")
+	reg.addFile("static.go", "static_registry.tmpl")
+
 	cmd := f.addFolder(name)
 	cmd.addFile("main.go", "cmd_main.tmpl")
 
@@ -39,6 +43,7 @@ func newProject(path, moduleName string) project {
 	f.addFile("client.go", "client.tmpl")
 	f.addFile("Makefile", "Makefile.tmpl")
 	f.addFile("Dockerfile", "Dockerfile.tmpl")
+	f.addFile("k8s.yml", "k8s.tmpl")
 	f.addFile("go.mod", "go-mod.tmpl")
 	f.addFile(".gitignore", "gitignore.tmpl")
 
@@ -47,6 +52,7 @@ func newProject(path, moduleName string) project {
 		Name:       name,
 		ProjectDir: path,
 		Folder:     f,
+		Gateway:    gateway,
 	}
 }
 

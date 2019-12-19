@@ -6,15 +6,17 @@ import (
 	"github.com/grpc-ecosystem/grpc-opentracing/go/otgrpc"
 	"github.com/lileio/lile/v2"
 	opentracing "github.com/opentracing/opentracing-go"
-        grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+    grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	"google.golang.org/grpc"
 )
 
 var (
 	cm = &sync.Mutex{}
+	// Client instance
 	Client {{ .CamelCaseName }}Client
 )
 
+// Get{{ .CamelCaseName }}Client returns {{ .Name }} gRPC client instance
 func Get{{ .CamelCaseName }}Client() {{ .CamelCaseName }}Client {
 	cm.Lock()
 	defer cm.Unlock()

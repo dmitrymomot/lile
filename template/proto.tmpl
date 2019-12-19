@@ -1,15 +1,73 @@
 syntax = "proto3";
 option go_package = "{{ .ModuleName }}";
 package {{ .Name }};
+{{if .Gateway}}import "google/api/annotations.proto";{{end}}
+
+service {{ .CamelCaseName }} {
+	{{if not .Gateway}}
+  	rpc Get(GetRequest) returns (GetResponse) {}
+	{{else}}
+  	rpc Get(GetRequest) returns (GetResponse) {
+		option (google.api.http) = {
+			get: "/v1/{{ .Name }}/{id}"
+		};
+	}
+
+  	rpc Create(CreateRequest) returns (CreateResponse) {
+		option (google.api.http) = {
+			post: "/v1/{{ .Name }}"
+			body: "*"
+		};
+	}
+
+  	rpc Update(UpdateRequest) returns (UpdateResponse) {
+		option (google.api.http) = {
+			put: "/v1/{{ .Name }}/{id}"
+			body: "*"
+		};
+	}
+
+	rpc Delete(DeleteRequest) returns (Empty) {
+		option (google.api.http) = {
+			delete: "/v1/{{ .Name }}/{id}"
+		};
+	}{{end}}
+}
 
 message GetRequest {
-  string id = 1;
+  	string id = 1;
 }
 
 message GetResponse {
-  string id = 1;
+  	string id = 1;
+}
+{{if .Gateway}}
+message Empty {}
+
+message CreateRequest {
+  	string body = 1;
 }
 
-service {{ .CamelCaseName }} {
-  rpc Get(GetRequest) returns (GetResponse) {}
+message CreateResponse {
+  	string body = 1;
 }
+
+message UpdateRequest {
+  	string id = 1;
+  	string body = 2;
+}
+
+message UpdateResponse {
+  	string id = 1;
+  	string body = 2;
+}
+
+message DeleteRequest {
+  	string id = 1;
+}
+
+message ValidationError {
+	string field = 1;
+	repeated string errors = 2;
+}
+{{end}}

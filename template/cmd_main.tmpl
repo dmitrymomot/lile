@@ -22,6 +22,7 @@ func main() {
 	lile.Server(func(g *grpc.Server) {
 		{{ .Name }}.Register{{ .CamelCaseName }}Server(g, s)
 	})
+	lile.GlobalService().Registry = registry.NewStatic(9200)
 
 	pubsub.SetClient(&pubsub.Client{
 		ServiceName: lile.GlobalService().Name,

@@ -1,0 +1,31 @@
+package registry
+
+import (
+	"fmt"
+
+	"github.com/lileio/lile/v2"
+)
+
+// NewStatic registry factory
+func NewStatic(port int) lile.Registry {
+	return &staticRegistry{port: port}
+}
+
+type staticRegistry struct {
+	port int
+}
+
+// Register a service
+func (r *staticRegistry) Register(s *lile.Service) error {
+	return nil
+}
+
+// Deregister a service
+func (r *staticRegistry) DeRegister(s *lile.Service) error {
+	return nil
+}
+
+// Get a service by name
+func (r *staticRegistry) Get(name string) (string, error) {
+	return fmt.Sprintf("%s:%d", name, r.port), nil
+}

@@ -7,14 +7,15 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	_ "github.com/lileio/lile/v2/statik"
+	_ "github.com/lileio/lile/v2/statik" // packs static to go file
 	"github.com/mattn/go-colorable"
 	"github.com/spf13/cobra"
 )
 
 var (
-	dir  string
-	name string
+	dir     string
+	name    string
+	gateway bool
 
 	out    = colorable.NewColorableStdout()
 	newCmd = &cobra.Command{
@@ -41,6 +42,13 @@ func init() {
 		"the module name i.e (github.com/username/project)",
 	)
 
+	newCmd.Flags().BoolVar(
+		&gateway,
+		"gateway",
+		false,
+		"generate grpc gateway",
+	)
+
 	newCmd.MarkFlagRequired("name")
 }
 
@@ -56,7 +64,7 @@ func new(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	p := newProject(dir, name)
+	p := newProject(dir, name, gateway)
 
 	err := p.write()
 	if err != nil {
