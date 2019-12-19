@@ -11,3 +11,4 @@ default: test
 
 install: statik
 	go install ./lile/
+	go install ./protoc-gen-lile-server/

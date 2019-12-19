@@ -2,7 +2,7 @@
 # Environment variables
 LATEST_COMMIT := $$(git rev-parse HEAD)
 
-.PHONY: help install proto {{if .Gateway}}gwproto {{end}}test docker deploy down reload info logs log
+.PHONY: help install proto test docker deploy down reload info logs log
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -10,17 +10,19 @@ help: ## Show this help
 install: ## Install dependencies
 	GOMODULES=off go get github.com/golang/protobuf/protoc-gen-go
 	GOMODULES=off go get github.com/grpc-ecosystem/grpc-gateway
-
+{{if not .Gateway}}
 proto: ## Generate grpc service
 	@protoc -I/usr/local/include \
 		-I$(GOPATH)/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 		-I$(GOPATH)/src -I . \
 		{{.Name}}.proto --lile-server_out=. --go_out=plugins=grpc,paths=source_relative:.
-{{if .Gateway}}
-gwproto: proto ## Generate grpc service gateway
+{{else}}
+proto: ## Generate grpc service with gateway
 	@protoc -I/usr/local/include -I. \
 		-I$(GOPATH)/src \
 		-I$(GOPATH)/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+		--lile-server_out=. \
+		--go_out=plugins=grpc,paths=source_relative:. \
 		--grpc-gateway_out=logtostderr=true:. \
 		{{.Name}}.proto
 {{end}}
