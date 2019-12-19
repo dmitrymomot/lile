@@ -1,7 +1,7 @@
 ![logo](./docs/logo.png)
 --
 
-![Actions Status](https://github.com/lileio/lile/workflows/Test/badge.svg) [![](https://godoc.org/github.com/lileio/lile?status.svg)](http://godoc.org/github.com/lileio/lile)
+![Actions Status](https://github.com/dmitrymomot/lile/workflows/Test/badge.svg) [![](https://godoc.org/github.com/dmitrymomot/lile?status.svg)](http://godoc.org/github.com/dmitrymomot/lile)
 
 Lile is a application generator (think `create-react-app`, `rails new` or `django startproject`) for gRPC services in Go and a set of tools/libraries.
 
@@ -21,7 +21,7 @@ Installing Lile is easy, using `go get` you can install the cmd line app to gene
 
 ```
 $ brew install protobuf
-$ go get -u github.com/lileio/lile/...
+$ go get -u github.com/dmitrymomot/lile/v2/...
 ```
 
 ### Getting Started
@@ -34,12 +34,13 @@ $ lile new lileio/users
 
 # Guide
 
-- [Creating a Service](#creating-a-service)
-- [Service Definition](#service-definitions)
-- [Generating RPC Methods](#generating-rpc-methods)
-- [Running and Writing Tests](#running--writing-tests)
-- [Using the Generated cmds](#using-the-generated-cmds)
-- [Adding your own cmds](#adding-your-own-cmds)
+- [Guide](#guide)
+	- [Creating a Service](#creating-a-service)
+	- [Service Definitions](#service-definitions)
+	- [Generating RPC Methods](#generating-rpc-methods)
+	- [Running &amp; Writing Tests](#running-amp-writing-tests)
+	- [Using the Generated cmds](#using-the-generated-cmds)
+		- [up](#up)
 
 ## Creating a Service
 
@@ -303,4 +304,4 @@ $ cd orders
 $ cobra add import
 ```
 
-You can now edit the file generated to create your cmd, `cobra` will automatically add the cmd's name to the help. 
+You can now edit the file generated to create your cmd, `cobra` will automatically add the cmd's name to the help.

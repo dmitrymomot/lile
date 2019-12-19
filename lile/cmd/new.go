@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	_ "github.com/lileio/lile/v2/statik" // packs static to go file
+	_ "github.com/dmitrymomot/lile/v2/statik" // packs static to go file
 	"github.com/mattn/go-colorable"
 	"github.com/spf13/cobra"
 )

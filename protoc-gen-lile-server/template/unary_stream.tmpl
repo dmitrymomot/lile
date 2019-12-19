@@ -5,6 +5,7 @@ import (
   {{ dedupImports .GoPackage .InputImport .OutputImport }}
 )
 
+// {{ .Name }} ...
 func (s {{ .ServiceName }}Server) {{ .Name }}(r *{{ .InType }}, stream {{.ImportName}}.{{ .ServiceName }}_{{.Name}}Server) error {
   res := &{{.OutType}}{}
   err := stream.Send(res)

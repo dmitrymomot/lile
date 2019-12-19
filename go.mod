@@ -1,4 +1,4 @@
-module github.com/lileio/lile/v2
+module github.com/dmitrymomot/lile/v2
 
 require (
 	github.com/beorn7/perks v1.0.0 // indirect
