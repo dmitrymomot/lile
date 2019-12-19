@@ -1,7 +1,4 @@
 # vi: ft=make
-# Environment variables
-LATEST_COMMIT := $$(git rev-parse HEAD)
-
 .PHONY: help install proto test docker deploy down reload info logs log
 
 help: ## Show this help
@@ -15,7 +12,8 @@ proto: ## Generate grpc service
 	@protoc -I/usr/local/include \
 		-I$(GOPATH)/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 		-I$(GOPATH)/src -I . \
-		{{.Name}}.proto --lile-server_out=. --go_out=plugins=grpc,paths=source_relative:.
+		--lile-server_out=. --go_out=plugins=grpc,paths=source_relative:. \
+		{{.Name}}.proto
 {{else}}
 proto: ## Generate grpc service with gateway
 	@protoc -I/usr/local/include -I. \
@@ -39,6 +37,8 @@ down: ## Down pods
 	@kubectl delete -f k8s.yml
 
 reload: down deploy info ## Reload after app was rebuilt
+
+refresh: down docker deploy info ## Rebuild image and restart service
 
 info: ## Get cluster info
 	@kubectl get all

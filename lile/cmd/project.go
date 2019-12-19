@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"os"
+	"regexp"
 	"strings"
 
 	"github.com/iancoleman/strcase"
@@ -20,7 +21,7 @@ func newProject(path, moduleName string, gateway bool) project {
 		AbsPath: path,
 	}
 
-	name := lastFromSplit(name, string(os.PathSeparator))
+	name := packageName(lastFromSplit(name, string(os.PathSeparator)))
 
 	s := f.addFolder("server")
 	s.addFile("server.go", "server.tmpl")
@@ -78,4 +79,15 @@ func (p project) DNSName() string {
 func lastFromSplit(input, split string) string {
 	rel := strings.Split(input, split)
 	return rel[len(rel)-1]
+}
+
+var alphaStr = regexp.MustCompile("[^a-zA-Z]+")
+
+func prepareString(str string) string {
+	str = alphaStr.ReplaceAllString(str, " ")
+	return str
+}
+
+func packageName(str string) string {
+	return strings.ReplaceAll(strings.ToLower(prepareString(str)), " ", "")
 }
