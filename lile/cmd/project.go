@@ -47,6 +47,7 @@ func newProject(path, moduleName string, gateway bool) project {
 	f.addFile("k8s.yml", "k8s.tmpl")
 	f.addFile("go.mod", "go-mod.tmpl")
 	f.addFile(".gitignore", "gitignore.tmpl")
+	f.addFile("sqlc.json", "sqlc.json.tmpl")
 
 	return project{
 		ModuleName: moduleName,
