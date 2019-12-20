@@ -9,10 +9,10 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/dmitrymomot/lile/v2/fromenv"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/grpc-ecosystem/grpc-opentracing/go/otgrpc"
-	"github.com/lileio/fromenv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
