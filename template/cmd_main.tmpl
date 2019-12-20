@@ -2,14 +2,19 @@ package main
 
 import (
 	_ "net/http/pprof"
+	"os"
 
 	"github.com/dmitrymomot/lile/v2"
-	"github.com/lileio/logr"
 	"github.com/dmitrymomot/lile/v2/fromenv"
+	"github.com/lileio/logr"
 	"github.com/lileio/pubsub/v2"
 	"github.com/lileio/pubsub/v2/middleware/defaults"
+	"github.com/lileio/pubsub/v2/providers/nats"
+	"github.com/sirupsen/logrus"
+	n "github.com/nats-io/nats.go"
 	"google.golang.org/grpc"
 	"{{ .ModuleName }}"
+	"{{ .ModuleName }}/registry"
 	"{{ .ModuleName }}/server"
 	"{{ .ModuleName }}/{{ .Name }}/cmd"
 )
@@ -24,9 +29,19 @@ func main() {
 	})
 	lile.GlobalService().Registry = registry.NewStatic(9200)
 
+	nc, err := n.Connect(os.Getenv("NATS_CLUSTER"))
+	if err != nil {
+		logrus.Fatal(err)
+	}
+	pubsubProvider, err := nats.NewNats(os.Getenv("NATS_CLUSTER_STAN"), stan.NatsConn(nc))
+	if err != nil {
+		logrus.Fatalf("fronenv: Nats Streaming pubsub err: %s", err)
+	}
+	logrus.Infof("Using Nats Streaming pubsub: %s -> %s", os.Getenv("NATS_CLUSTER"), os.Getenv("NATS_CLUSTER_STAN"))
+
 	pubsub.SetClient(&pubsub.Client{
 		ServiceName: lile.GlobalService().Name,
-		Provider:    fromenv.PubSubProvider(),
+		Provider:    pubsubProvider,
 		Middleware:  defaults.Middleware,
 	})
 

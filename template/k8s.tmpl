@@ -35,7 +35,9 @@ spec:
           imagePullPolicy: IfNotPresent
           # env:
           #   - name: NATS_CLUSTER
-          #     value: "stan:4222"
+          #     value: "nats://nats-cluster:4222"
+          #   - name: NATS_CLUSTER_STAN
+          #     value: "stan-cluster"
           ports:
             - containerPort: 9200
               name: grpc-port
