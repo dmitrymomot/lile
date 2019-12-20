@@ -33,6 +33,9 @@ spec:
         - name: {{.Name}}
           image: {{.Name}}:latest
           imagePullPolicy: IfNotPresent
+          # env:
+          #   - name: NATS_CLUSTER
+          #     value: "stan:4222"
           ports:
             - containerPort: 9200
               name: grpc-port
