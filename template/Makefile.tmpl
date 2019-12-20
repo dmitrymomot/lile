@@ -1,5 +1,5 @@
 # vi: ft=make
-.PHONY: help install proto test docker deploy down reload info logs log
+.PHONY: help install proto test docker deploy down reload refresh info logs log
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -48,6 +48,6 @@ logs: ## Show logs
 
 log: logs
 
-sqlc:
-	GOMODULES=off go get github.com/kyleconroy/sqlc
+sqlc: ## Generate database wrapper from sql queries by package https://github.com/kyleconroy/sqlc
+	# Follow https://github.com/kyleconroy/sqlc for detail
 	sqlc generate
