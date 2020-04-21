@@ -1,7 +1,7 @@
 ![logo](./docs/logo.png)
 --
 
-![Actions Status](https://github.com/lileio/lile/workflows/Test/badge.svg) [![](https://pkg.go.dev/github.com/dmitrymomot/lile/v2?status.svg)](https://pkg.go.dev/github.com/dmitrymomot/lile/v2)
+![Actions Status](https://github.com/lileio/lile/workflows/Test/badge.svg) [![](https://godoc.org/github.com/lileio/lile/v2?status.svg)](https://pkg.go.dev/github.com/lileio/lile)
 
 Lile is a application generator (think `create-react-app`, `rails new` or `django startproject`) for gRPC services in Go and a set of tools/libraries.
 
